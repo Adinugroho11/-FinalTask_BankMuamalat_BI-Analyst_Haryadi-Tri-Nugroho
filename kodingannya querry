@@ -1,0 +1,17 @@
+SELECT
+  o.Date             AS order_date,
+  pc.CategoryName    AS category_name,
+  p.ProdName         AS product_name,
+  p.Price            AS product_price,
+  o.Quantity         AS order_qty,
+  (o.Quantity * p.Price) AS total_sales,
+  c.CustomerEmail    AS cust_email,
+  c.CustomerCity     AS cust_city
+FROM `bright-gearbox-461822-v8.Orders.Orders` o
+JOIN `bright-gearbox-461822-v8.Customers.Customers` c
+  ON o.CustomerID = c.CustomerID
+JOIN `bright-gearbox-461822-v8.Products.Products` p
+  ON o.ProdNumber = p.ProdNumber
+JOIN `bright-gearbox-461822-v8.ProductCategory.ProductCategory` pc
+  ON p.Category = pc.CategoryID
+ORDER BY order_date ASC;
